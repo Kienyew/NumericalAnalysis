@@ -1,13 +1,11 @@
-module Main where
-
-import Lucid.Bootstrap (span9_)
+module Bisect where
 
 evaluatePolynomial :: Num a => [a] -> a -> a
 evaluatePolynomial coeffs x0 = sum [coeffs !! k * x0 ^ k | k <- [0 .. n]]
   where
     n = length coeffs - 1
 
-bisection :: (Ord a, Fractional a) => (a -> a) -> a -> a -> a -> a
+bisection :: (Ord a, Floating a) => (a -> a) -> a -> a -> a -> a
 bisection f a b tol
     | fa * fb >= 0 = error "f(a) and f(b) have same signs"
     | (b - a) / 2 <= tol = c
@@ -62,17 +60,11 @@ c9 = do
     r = 1
     volume h = pi * h ^ 2 * (r - 1 / 3 * h)
 
-main :: IO ()
-main
-    -- print $ bisection (evaluatePolynomial [-1, 1, 0, 1]) 0 1 0.00005
-    -- print $ bisection (\x -> cos x - x) 0 1 0.5e-6
-    -- 2x^3 - x - 7
-    -- print $ bisection (evaluatePolynomial [-7, -1, 0, 2]) 1 2 0.00005
-    -- exp(x) == 3
-    -- print $ bisection (\x -> exp x - 3) 0 2 0.5e-6
-    -- q3
-    -- q5
-    -- c5
-    -- c7
- = do
-    c9
+example = do
+    print $ bisection (evaluatePolynomial [-1, 1, 0, 1]) 0 1 0.00005
+    print $ bisection (\x -> cos x - x) 0 1 0.5e-6
+    print $ bisection (evaluatePolynomial [-7, -1, 0, 2]) 1 2 0.00005
+    print $ bisection (\x -> exp x - 3) 0 2 0.5e-6
+
+-- main :: IO ()
+-- main = c9
