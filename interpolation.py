@@ -131,5 +131,3 @@ def c3():
           62.024e6, 72.063e6, 74.669e6, 74.487e6, 74.065e6, 76.777e6]
     print(divided_difference(*zip(xs, ys)))
 
-
-c3()
